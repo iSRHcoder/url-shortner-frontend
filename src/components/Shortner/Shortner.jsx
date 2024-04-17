@@ -8,6 +8,7 @@ import {
 } from "../../services/serverApi";
 import toast from "react-hot-toast";
 import { MdContentCopy } from "react-icons/md";
+import Loader from "../Loader/Loader";
 
 const frontEndUrl = import.meta.env.VITE_FRONTEND_DOMAIN;
 
@@ -18,6 +19,7 @@ const Shortner = () => {
   const [redirectToUrl, setRedirectToUrl] = useState("");
   const [showUrl, setShowUrl] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isLoader, setIsLoader] = useState(false);
 
   const copyUrl = () => {
     navigator.clipboard.writeText(`${frontEndUrl}/${shortUrl}`);
@@ -33,7 +35,9 @@ const Shortner = () => {
 
   const shortUrlBtnHandler = async () => {
     try {
+      setIsLoader(true);
       if (!inputUrl.length) {
+        setIsLoader(false);
         return toast.error("Please provide URL to short");
       }
 
@@ -42,6 +46,7 @@ const Shortner = () => {
 
       const getResponse = await getUrls();
       setUrls(getResponse.urls);
+      setIsLoader(false);
       setShowUrl(true);
       setInputUrl("");
     } catch (error) {
@@ -91,7 +96,13 @@ const Shortner = () => {
         </Button>
       </div>
 
-      {showUrl && (
+      {isLoader && (
+        <div className="ms-5">
+          <Loader />
+        </div>
+      )}
+
+      {showUrl && !isLoader && (
         <div
           className="m-auto"
           style={{
