@@ -9,6 +9,7 @@ import {
 import toast from "react-hot-toast";
 import { MdContentCopy } from "react-icons/md";
 import Loader from "../Loader/Loader";
+import { Col, Container, Row } from "react-bootstrap";
 
 const frontEndUrl = import.meta.env.VITE_FRONTEND_DOMAIN;
 
@@ -103,47 +104,43 @@ const Shortner = () => {
       )}
 
       {showUrl && !isLoader && (
-        <div
-          className="m-auto"
-          style={{
-            width: "80%",
-            border: "1px solid black",
-            padding: "20px",
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
-          <p
-            style={{
-              width: "500px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              fontSize: "20px",
-              margin: "auto",
-            }}
-          >
-            {redirectToUrl}
-          </p>
-
-          <a
-            href={`${redirectToUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontSize: "20px",
-              margin: "auto",
-            }}
-          >
-            {`${frontEndUrl}/${shortUrl}`}
-          </a>
-          <MdContentCopy
-            style={{ cursor: "pointer" }}
-            size={20}
-            onClick={copyUrl}
-          />
-          {copied && <span style={{ marginLeft: "8px" }}>Copied!</span>}
-        </div>
+        <Container fluid style={{ border: "2px solid black", width: "80%" }}>
+          <Row className="justify-content-center">
+            <Col md={6} xs={12}>
+              <p
+                className="url-text"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  marginTop: "12px",
+                }}
+              >
+                {redirectToUrl}
+              </p>
+            </Col>
+            <Col md={6} xs={12} className="d-flex align-items-center">
+              <a
+                className="url-link"
+                href={`${redirectToUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ marginRight: "8px" }}
+              >
+                {`${frontEndUrl}/${shortUrl}`}
+              </a>
+              <MdContentCopy
+                style={{ cursor: "pointer" }}
+                size={20}
+                onClick={copyUrl}
+              />
+              {copied && (
+                <span style={{ marginLeft: "8px", fontSize: "80%" }}>
+                  Copied!
+                </span>
+              )}
+            </Col>
+          </Row>
+        </Container>
       )}
     </>
   );

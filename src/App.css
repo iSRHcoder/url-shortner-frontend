@@ -1,3 +1,16 @@
 html {
   text-align: center;
 }
+@media (max-width: 768px) {
+  .url-text,
+  .url-link {
+    font-size: 80%;
+  }
+}
+
+@media (max-width: 576px) {
+  .url-text,
+  .url-link {
+    font-size: 80%;
+  }
+}
