@@ -1,3 +1,5 @@
 {
-  "HOME": "/"
+  "HOME": "/",
+  "EMPTY_DIV": "/empty-div",
+  "ALL_URLS": "/all-urls"
 }
